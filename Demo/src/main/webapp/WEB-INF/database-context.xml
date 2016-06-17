@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd "
+	default-lazy-init="default">
+
+    
+	<!-- 数据库配置 开始 -->
+
+	<bean id="mapTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mapDataSource" />
+	</bean>
+
+
+	<!-- map sql session factory -->
+    <bean id="mapSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="mapDataSource"/>
+        <property name="configLocation" value="/WEB-INF/map-mybatis-config.xml" />
+        <property name="configurationProperties" ref="mapMyBatisProperties" />
+		<property name="typeAliasesPackage" value="com.dao"/>
+    </bean>
+
+
+	<!-- data source -->
+	<bean id="mapDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${map.jdbc.driver}" />
+		<property name="url" value="${map.jdbc.url}" />
+		<property name="username" value="${map.jdbc.username}"/>
+		<property name="password" value="${map.jdbc.password}"/>
+
+		<!--initialSize: 初始化连接--> 
+		<property name="initialSize" value="8"/> 
+		<!--minIdle: 最小空闲连接--> 
+		<property name="minIdle" value="4"/> 
+		<!--maxIdle: 最大空闲连接--> 
+		<property name="maxIdle" value="8"/> 
+		<!--maxActive: 最大连接数量-->
+		<property name="maxTotal" value="16"/>
+
+		<!--maxWait: 超时等待时间以毫秒为单位 60000毫秒/1000等于60秒--> 
+		<property name="maxWaitMillis" value="30000"/>
+
+		<property name="testOnBorrow" value="false" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="select 1" />
+		<property name="timeBetweenEvictionRunsMillis" value="30000" />
+		<property name="numTestsPerEvictionRun" value="8" />
+	</bean>
+
+	<!-- properties for inventory mybatis config -->
+	<bean id="mapMyBatisProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	    <property name="properties">
+	        <props>
+	            <prop key="jdbc.driver">${map.jdbc.driver}</prop>
+	            <prop key="jdbc.url">${map.jdbc.url}</prop>
+	            <prop key="jdbc.username">${map.jdbc.username}</prop>
+	            <prop key="jdbc.password">${map.jdbc.password}</prop>
+	        </props>
+	    </property>
+	</bean>
+
+    <bean id="mapMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="sqlSessionFactoryBeanName" value="mapSqlSessionFactory" />
+        <property name="basePackage" value="com.dao" />
+    </bean> 
+
+</beans>

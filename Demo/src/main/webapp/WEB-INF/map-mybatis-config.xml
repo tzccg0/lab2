@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- http://blog.csdn.net/hupanfeng/article/details/9080545 -->  
+<configuration>
+	<!-- 每个标签必须按顺序写，不然蛋疼的DTD会提示错误 -->
+	<!-- properties里配置的属性将被存放在Configuration的variables变量里，供Mybatis使用。此外在配置文件中，也可以使用这些属性，用来对配置项实现动态配置 -->  
+	<!-- properties的属性 resource 会从ClassPath中读取配置文件，属性 url 则会从外部配置文件读取，但是外部配置文件的路径必须是绝对路径-->
+<!-- 	<properties> resource="/WEB-INF/jdbc.properties"   url="/WEB-INF/jdbc.properties"
+		<property name="username" value="dev_user"/> 
+		<property name="password" value="F2Fa3!33TYyg"/>   
+	</properties> -->
+
+	<!-- setting节点里配置的值会直接改写Configuration对应的变量值，这些变量描述的是Mybatis的全局运行方式 -->
+<!-- 	<settings>
+		<setting name="cacheEnabled" value="true"/>   
+		<setting name="lazyLoadingEnabled" value="true"/>   
+		<setting name="multipleResultSetsEnabled" value="true"/>   
+		<setting name="useColumnLabel" value="true"/>   
+		<setting name="useGeneratedKeys" value="false"/>   
+		<setting name="enhancementEnabled" value="false"/>   
+		<setting name="defaultExecutorType" value="SIMPLE"/>   
+		<setting name="defaultStatementTimeout" value="25000"/>
+	</settings> -->
+
+	<!-- 类型别名  是为Java类型命名一个短的名字。它只用在XML配置文件里，用来减少类完全限定名的多余部分  -->
+<!--     <typeAliases>
+        <typeAlias alias="Document" type="com.aihuishou.recycle.persistence.inventory.models.Document"/>
+        <typeAlias alias="Document" type="com.aihuishou.recycle.persistence.inventory.models.Document"/>
+        <typeAlias alias="Document" type="com.aihuishou.recycle.persistence.inventory.models.Document"/>
+        <typeAlias alias="Document" type="com.aihuishou.recycle.persistence.inventory.models.Document"/>
+        <typeAlias alias="Document" type="com.aihuishou.recycle.persistence.inventory.models.Document"/>
+        <typeAlias alias="Document" type="com.aihuishou.recycle.persistence.inventory.models.Document"/>
+    </typeAliases> --> 
+
+	<!-- 类型处理器: 无论是MyBatis在预处理语句中设置一个参数，还是从结果集中取出一个值时，类型处理器被用来将获取的值以合适的方式转换成Java类型。 -->
+    <!-- <typeHandlers>   
+    	<typeHandler javaType="String" jdbcType="VARCHAR" handler="org.mybatis.example.ExampleTypeHandler"/>   
+    </typeHandlers> -->
+    
+    <!-- objectFactory -->
+	<!-- <objectFactory type=""></objectFactory>   
+	<objectWrapperFactory type=""></objectWrapperFactory>-->
+	
+	<!-- 插件: 插件可以改变某些类的执行， MyBatis允许被插件来拦截的类有 
+    	Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)   
+    	ParameterHandler (getParameterObject, setParameters)   
+    	ResultSetHandler (handleResultSets, handleOutputParameters)   
+    	StatementHandler (prepare, parameterize, batch, update, query)  
+	 -->
+<!-- 	<plugins>
+		<plugin interceptor="harold.java.study.persistence.exts.MyPlugin">
+			<property name="someProperty" value="100" />
+		</plugin>
+	</plugins> -->
+
+	<!-- environments环境: environments里可以配置多个environment，每个environment对应一个数据库环境 -->
+	<!-- <environments default="development">
+		<environment id="development">
+			<transactionManager type="MANAGED">  
+                <property name="closeConnection" value="false"/>  
+            </transactionManager>  
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>   -->
+	
+    
+    <!-- mapper映射器: Mappers用于告诉Mybatis去哪里寻找sql映射文件 -->
+    <mappers>
+     <package name="com.dao"/>
+    </mappers>
+
+</configuration>
